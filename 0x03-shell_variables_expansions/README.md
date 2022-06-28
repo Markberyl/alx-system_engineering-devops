@@ -1,1 +1,1 @@
-My readme for today
+shell variables readme
