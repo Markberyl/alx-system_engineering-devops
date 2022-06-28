@@ -1,1 +1,1 @@
-task 0.shell basics
+shell variables
