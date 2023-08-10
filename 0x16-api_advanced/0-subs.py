@@ -1,28 +1,18 @@
 #!/usr/bin/python3
+"""function that queries the Reddit API and returns the number of subscribers
+for a given subreddit"""
+
 import requests
 
+
 def number_of_subscribers(subreddit):
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Custom User Agent'}
-
+    """function that queries the Reddit API and returns the number of
+    subscribers for a given subreddit"""
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    headers = {'User-Agent': 'My User Agent 1.0'}
     response = requests.get(url, headers=headers)
-
     if response.status_code == 200:
-        try:
-            data = response.json()
-            subscribers = data['data']['subscribers']
-            return subscribers
-        except (KeyError, ValueError):
-            return 0
+        data = response.json()
+        return data.get('data').get('subscribers')
     else:
         return 0
-
-if __name__ == "__main__":
-    import sys
-
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
-    else:
-        subreddit = sys.argv[1]
-        print("{:d}".format(number_of_subscribers(subreddit)))
-
